@@ -12,7 +12,7 @@ Build an app which updates the position of a seekbar for a mediaplayer
 
 ## Requirements
 This app will consist of a Media acitvity with your own UI that will play a locally stored media file (audio/video). 
-1)The position of the seekbar should be updated every second as the media is playing. 
+1)The position of the seekbar should be updated every second as the media is playing.   
 2)The user should be able to play/pause the media and seek to any position at any time. 
 
 

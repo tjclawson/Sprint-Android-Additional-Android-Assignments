@@ -3,4 +3,6 @@
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="play2">Play</string>
+    <string name="mm_ss">MM:SS</string>
+    <string name="slash">/</string>
 </resources>

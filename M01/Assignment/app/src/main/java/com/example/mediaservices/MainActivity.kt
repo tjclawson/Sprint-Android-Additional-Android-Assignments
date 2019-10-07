@@ -11,7 +11,8 @@ class MainActivity : AppCompatActivity() {
 
     val handler = Handler()
     val delay = 1000
-
+    var videoDuration: Int = 0
+    inner class Time(val minutes: Int, val seconds: Int)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed(object : Runnable {
             override fun run() {
                 seekBarUpdate()
+                timeUpdate()
                 handler.postDelayed(this, delay.toLong())
             }
         }, delay.toLong())
@@ -48,6 +50,38 @@ class MainActivity : AppCompatActivity() {
 
     private fun seekBarUpdate () {
         seekbar.progress = vv_main.currentPosition
+    }
+
+    private fun timeUpdate() {
+        val timeElapsed = milliToMMSS((vv_main.currentPosition).toDouble())
+        val timeRemaining = milliToMMSS((videoDuration - vv_main.currentPosition).toDouble())
+
+        tv_time_elapsed.text = timeToString(timeElapsed)
+        tv_time_remaining.text = timeToString(timeRemaining)
+    }
+
+    private fun milliToMMSS(milliseconds: Double): Time {
+        var minutes: Double = (milliseconds / 1000.0) / 60.0
+        var minutesRemainder = minutes - (minutes.toInt()).toDouble()
+        var seconds = minutesRemainder * 60
+        return Time(minutes.toInt(), seconds.toInt())
+    }
+
+    private fun timeToString(time: Time): String {
+        var minutesString = ""
+        var secondsString = ""
+        if (time.minutes < 10) {
+            minutesString = "0${time.minutes}"
+        } else {
+            minutesString = "${time.minutes}"
+        }
+        if (time.seconds < 10) {
+            secondsString = "0${time.seconds}"
+        } else {
+            secondsString = "${time.seconds}"
+        }
+
+        return "$minutesString:$secondsString"
     }
 
     private fun seekBarScrub() {
@@ -74,6 +108,7 @@ class MainActivity : AppCompatActivity() {
             button_pause_play.isEnabled = true
             it.let {
                 seekbar.max = it.duration
+                videoDuration = it.duration
             }
         }
     }

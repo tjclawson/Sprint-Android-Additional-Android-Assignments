@@ -1,5 +1,6 @@
 package com.example.mediaservices
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     val handler = Handler()
     val delay = 1000
     var videoDuration: Int = 0
-    inner class Time(val minutes: Int, val seconds: Int)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +24,14 @@ class MainActivity : AppCompatActivity() {
         seekBarScrub()
         handlerInit()
 
+        button_launch_exo_activity.setOnClickListener {
+            startActivity(Intent(this, ExoPlayer::class.java))
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        vv_main.pause()
     }
 
     private fun playPauseButtonInit() {
@@ -113,3 +122,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
+class Time(val minutes: Int, val seconds: Int)
+

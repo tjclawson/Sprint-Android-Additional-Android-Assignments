@@ -3,10 +3,15 @@ package com.example.mediaservices
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.widget.SeekBar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    val handler = Handler()
+    val delay = 1000
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,7 +19,8 @@ class MainActivity : AppCompatActivity() {
 
         button_pause_play.isEnabled = false
         playPauseButtonInit()
-        Log.i("BIGBRAIN", "${R.raw.live_views_of_starman}")
+        seekBarScrub()
+        handlerInit()
 
     }
 
@@ -29,6 +35,32 @@ class MainActivity : AppCompatActivity() {
                 button_pause_play.text = getString(R.string.pause)
             }
         }
+    }
+
+    private fun handlerInit() {
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                seekBarUpdate()
+                handler.postDelayed(this, delay.toLong())
+            }
+        }, delay.toLong())
+    }
+
+    private fun seekBarUpdate () {
+        seekbar.progress = vv_main.currentPosition
+    }
+
+    private fun seekBarScrub() {
+        seekbar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {}
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+                p0?.let { vv_main.seekTo(it.progress) }
+            }
+        })
     }
 
     override fun onStart() {

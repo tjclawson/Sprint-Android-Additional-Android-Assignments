@@ -8,7 +8,7 @@ Assignment
 
 
 ## Overview
-Build an app which updates the position of a seekbar for a mediaplayer 
+Build an app which updates the position of a seekbar for a mediaplayer. Also show time elapsed and time remaining.
 
 ## Requirements
 This app will consist of a Media acitvity with your own UI that will play a locally stored media file (audio/video).    
@@ -20,8 +20,8 @@ This app will consist of a Media acitvity with your own UI that will play a loca
 1. Create a project and add any media source in the raw directory(audio/video)
 2. Add your own UI to the app for the seekbar, play/pause buttons
 3. Add clicklisteners for the play/pause buttons to properly prepare and play the media.
-4. Use the Handler class in Android to run a piece of code repeatedly every second. 
-This code should update the position of the seekbar for the media.
+4. Write a function that runs every second to update the position of the seekbar and also shows the time elapsed value
+and time remaining value in this format: mm:ss 
 
 ## Go Further
 - Repeat this project using ExoPlayer instead of the traditional MediaPlayer.

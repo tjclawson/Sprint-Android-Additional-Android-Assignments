@@ -21,7 +21,7 @@ This app will consist of a Media acitvity with your own UI that will play a loca
 2. Add your own UI to the app for the seekbar, play/pause buttons
 3. Add clicklisteners for the play/pause buttons to properly prepare and play the media.
 4. Write a function that runs every second to update the position of the seekbar and also shows the time elapsed value
-and time remaining value in this format: mm:ss 
+and time remaining value in this format: mm:ss (Hint: You could use the Handler class for this)
 
 ## Go Further
 - Repeat this project using ExoPlayer instead of the traditional MediaPlayer.

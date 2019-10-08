@@ -36,6 +36,7 @@ import kotlinx.android.synthetic.main.item_detail.view.*
  */
 class ItemDetailFragment : Fragment(), OnMapReadyCallback {
     // TODO: S09M02-4a Add map variable
+    var mMap: GoogleMap? = null
 
     private var twoPane: Boolean = false
 
@@ -89,6 +90,12 @@ class ItemDetailFragment : Fragment(), OnMapReadyCallback {
 
         // TODO: S09M02-4b copy code from generated maps activity into the activity where you want it to live
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+        getCurrentLocation()
 
         return rootView
     }

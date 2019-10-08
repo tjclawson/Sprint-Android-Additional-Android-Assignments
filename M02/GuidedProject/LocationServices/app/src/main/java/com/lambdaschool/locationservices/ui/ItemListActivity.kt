@@ -21,6 +21,7 @@ import com.lambdaschool.locationservices.arch.Injection
 import com.lambdaschool.locationservices.model.Contact
 import com.lambdaschool.locationservices.model.ContactResults
 import com.lambdaschool.locationservices.retrofit.JsonPlaceHolderApi
+import com.lambdaschool.locationservices.ui.ItemDetailFragment.Companion.ARG_ITEM_ID
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
@@ -91,6 +92,7 @@ class ItemListActivity : AppCompatActivity() {
                 val fragment = ItemDetailFragment().apply {
                     arguments = Bundle().apply {
                         // TODO: S09M02-8a Use Serializable to pass the Contact
+                        putSerializable(ARG_ITEM_ID, item)
                     }
                 }
                 parentActivity.supportFragmentManager

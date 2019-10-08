@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.lambdaschool.locationservices.R
+import com.lambdaschool.locationservices.ui.ItemDetailFragment.Companion.ARG_ITEM_ID
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**
@@ -38,6 +39,7 @@ class ItemDetailActivity : AppCompatActivity() {
             val fragment = ItemDetailFragment().apply {
                 arguments = Bundle().apply {
                     // TODO: S09M02-8b put Serializable
+                    putSerializable(ARG_ITEM_ID, intent.getSerializableExtra(ARG_ITEM_ID))
                 }
             }
 

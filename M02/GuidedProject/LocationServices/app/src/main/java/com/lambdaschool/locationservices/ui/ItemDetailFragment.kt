@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,7 @@ class ItemDetailFragment : Fragment(), OnMapReadyCallback {
                 // Load the content specified by the fragment
                 // arguments.
                 // TODO: S09M02-8c get Serializable
+                item = it.getSerializable(ARG_ITEM_ID) as Contact
 
                 if (activity is ItemDetailActivity) {
                     // single-pane (phone)
@@ -110,10 +112,16 @@ class ItemDetailFragment : Fragment(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         // TODO: S09M02-4c additional copied code
+        mMap = googleMap
 
+        val city = item?.location?.city ?: "Unkown City"
         // Using known world locations, since lat/lng from API call is random (and usually in the middle of the Pacific...)
+        val location = WORLD_LOCS.random()
 
         // TODO: S09M02-9 use location data to move the camera and place a pin
+        googleMap.addMarker(MarkerOptions().position(location).title("Marker in $city"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+
     }
 
     private fun getCurrentLocation() {

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
@@ -19,14 +20,22 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.activity_maps.*
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MyDialogFragment.FragmentListener {
 
+    val dialog = MyDialogFragment()
     private lateinit var mMap: GoogleMap
     private val FINE_LOCATION_REQUEST_CODE = 5
-
     lateinit var currrentLocation: Location
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun getLatLng(latLng: LatLng) {
+        Toast.makeText(this, "${latLng.latitude}, ${latLng.longitude}", Toast.LENGTH_LONG).show()
+        currrentLocation.latitude = latLng.latitude
+        currrentLocation.longitude = latLng.longitude
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -37,6 +46,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         button_center.isEnabled = false
         button_place_marker.isEnabled = false
         getCurrentLocation()
+
+        button_new_latlng.setOnClickListener {
+            dialog.show(supportFragmentManager, "MyDialog")
+        }
     }
 
     /**
@@ -51,7 +64,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-
         button_center.setOnClickListener {
             var currentLatLng = LatLng(currrentLocation.latitude, currrentLocation.longitude)
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLng))
@@ -61,6 +73,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             var currentLatLng = LatLng(currrentLocation.latitude, currrentLocation.longitude)
             mMap.addMarker(MarkerOptions().position(currentLatLng).title("Marker in Sydney"))
         }
+
+        mMap.setOnMarkerClickListener {
+            Toast.makeText(this, "${it.title}", Toast.LENGTH_LONG).show()
+            true
+        }
+
+
     }
 
     private fun getLocation() {

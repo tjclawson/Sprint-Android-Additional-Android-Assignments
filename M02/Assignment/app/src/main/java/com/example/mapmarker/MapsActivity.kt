@@ -2,10 +2,12 @@ package com.example.mapmarker
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
@@ -26,6 +28,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MyDialogFragment.F
     private lateinit var mMap: GoogleMap
     private val FINE_LOCATION_REQUEST_CODE = 5
     lateinit var currrentLocation: Location
+    lateinit var geocoder: Geocoder
 
     override fun getLatLng(latLng: LatLng) {
         Toast.makeText(this, "${latLng.latitude}, ${latLng.longitude}", Toast.LENGTH_LONG).show()
@@ -42,6 +45,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MyDialogFragment.F
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        geocoder = Geocoder(this)
 
         button_center.isEnabled = false
         button_place_marker.isEnabled = false
@@ -71,15 +76,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MyDialogFragment.F
 
         button_place_marker.setOnClickListener {
             var currentLatLng = LatLng(currrentLocation.latitude, currrentLocation.longitude)
-            mMap.addMarker(MarkerOptions().position(currentLatLng).title("Marker in Sydney"))
+            val title = geocoder.getFromLocation(currrentLocation.latitude, currrentLocation.longitude, 1)
+            mMap.addMarker(MarkerOptions().position(currentLatLng).title("${title[0].locality}, ${title[0].adminArea}"))
         }
 
         mMap.setOnMarkerClickListener {
             Toast.makeText(this, "${it.title}", Toast.LENGTH_LONG).show()
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Marker Info")
+            builder.setMessage("${it.title}")
+                .setPositiveButton("Done"){_, _ ->}
+                .setNegativeButton("Delete"){dialog, which -> it.remove() }
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
             true
         }
-
-
     }
 
     private fun getLocation() {

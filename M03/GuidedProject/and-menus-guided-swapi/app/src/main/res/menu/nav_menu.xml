@@ -6,6 +6,7 @@
             <item
                 android:checkable="true"
                 android:id="@+id/nav_category_people"
+                android:icon="@mipmap/ic_launcher"
                 android:title="People" />
             <item
                 android:checkable="true"

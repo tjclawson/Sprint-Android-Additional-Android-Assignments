@@ -18,5 +18,9 @@ abstract class SwApiObject(id: Int, name: String) : Serializable {
 
     companion object {
         // TODO 8b: Move comparison to the object
+
+        fun compareNames(p0: SwApiObject, p1: SwApiObject): Int {
+            return p0.name.compareTo(p1.name)
+        }
     }
 }

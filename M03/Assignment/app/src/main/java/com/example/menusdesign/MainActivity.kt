@@ -1,5 +1,6 @@
 package com.example.menusdesign
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         drawerLayout?.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val navigationView = findViewById<View>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
 
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_category_first -> { Toast.makeText(this, "First", Toast.LENGTH_LONG).show() }
                 R.id.nav_category_second -> { Toast.makeText(this, "Second", Toast.LENGTH_LONG).show() }
                 R.id.nav_category_third -> { Toast.makeText(this, "Third", Toast.LENGTH_LONG).show() }
+                R.id.nav_category_start_activity -> { startActivity(Intent(this, SecondActivity::class.java))}
             }
 
             drawerLayout.closeDrawers()

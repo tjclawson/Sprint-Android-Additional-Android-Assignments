@@ -2,4 +2,7 @@
     <string name="app_name">MenusDesign</string>
     <string name="open_drawer">OPEN</string>
     <string name="close_drawer">CLOSE</string>
+    <string name="drawer_first">first</string>
+    <string name="drawer_second">second</string>
+    <string name="drawer_third">third</string>
 </resources>

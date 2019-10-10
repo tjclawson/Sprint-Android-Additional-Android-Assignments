@@ -13,7 +13,11 @@
         <item
             android:checkable="true"
             android:id="@+id/nav_category_third"
-            android:title="Thrid"/>
+            android:title="Third"/>
+        <item
+            android:checkable="true"
+            android:id="@+id/nav_category_start_activity"
+            android:title="New Activity"/>
 
     </group>
 

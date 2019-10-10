@@ -81,3 +81,9 @@ lint/outputs/
 lint/tmp/
 # lint/reports/
 .idea
+/M03/.DS_Store
+/M03/GuidedProject/.DS_Store
+/M04/.DS_Store
+/M02/.DS_Store
+/M01/.DS_Store
+/.DS_Store
